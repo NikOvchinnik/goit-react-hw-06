@@ -3,6 +3,8 @@ import { useId } from "react";
 import style from "./ContactForm.module.css";
 import { nanoid } from "nanoid";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 
 const initialValue = {
   name: "",
@@ -21,7 +23,8 @@ const contactSchema = Yup.object().shape({
     .required("Required"),
 });
 
-const ContactForm = ({ onAdd }) => {
+const ContactForm = () => {
+  const dispath = useDispatch();
   const idInputName = useId();
   const idInputNumber = useId();
 
@@ -31,7 +34,7 @@ const ContactForm = ({ onAdd }) => {
       name: values.name.trim(),
       number: values.number.trim(),
     };
-    onAdd(newContact);
+    dispath(addContact(newContact));
     actions.resetForm();
   };
 

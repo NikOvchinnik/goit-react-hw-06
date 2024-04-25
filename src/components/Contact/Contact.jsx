@@ -1,8 +1,13 @@
 import style from "./Contact.module.css";
 import { LiaAddressBook } from "react-icons/lia";
 import { LiaPhoneSolid } from "react-icons/lia";
+import { useDispatch } from "react-redux";
+import { deleteContact } from "../../redux/contactsSlice";
 
-const Contact = ({ contact: { id, name, number }, onDelete }) => {
+const Contact = ({ contact: { id, name, number }}) => {
+  
+  const dispath = useDispatch();
+
   return (
     <li className={style.contactItem}>
       <div className={style.contactContainer}>
@@ -18,7 +23,7 @@ const Contact = ({ contact: { id, name, number }, onDelete }) => {
       <button
         className={style.contactBtnDelete}
         type="button"
-        onClick={() => onDelete(id)}
+        onClick={() => dispath(deleteContact(id))}
       >
         Delete
       </button>
